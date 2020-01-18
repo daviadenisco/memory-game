@@ -1,0 +1,79 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  background: rgb(40, 43, 43);
+  margin: 20px 0;
+}
+
+header {
+  background-color: white;  
+  margin: 10px 0 10px 0;
+  padding: 10px;
+}
+
+header > h1 {
+  color: #25272E;
+  font-family: 'Asap', sans-serif;
+  font-size: 40px;
+}
+
+button {
+  float:  right;
+}
+
+.grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  margin: 0 auto;
+}
+
+.card {
+  margin: 5px;
+  position: relative;
+  transition: all .4s linear;
+  transform-style: preserve-3d;
+}
+
+.card,
+.back,
+.front {
+  height: 150px;
+  width: 150px;
+}
+
+.back,
+.front {
+  backface-visibility: hidden;
+  position: absolute;
+}
+
+.front {
+    background-image: url('./images/card.png');
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    border: 3px solid rgb(68, 68, 68);
+}
+
+.back {
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  border: 3px solid white;
+  transform: rotateY(180deg);
+}
+
+.selected {
+  transform: rotateY(180deg);
+}
+
+.match .front {
+  background-image: url('./images/checkmark.png') !important;
+  transform: scaleX(-1);
+  -webkit-transform: scaleX(-1);
+}
