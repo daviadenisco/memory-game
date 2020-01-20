@@ -10,11 +10,51 @@
 <body>
     <header>
         <h1 id='title'>Memory Cats</h1>
-        <div>
-            <button>New Game</button>
+        <div class='header-stats'>
+            <span class='time-to-beat stats'>Time to beat: 
+                <span class="time" id="time-to-beat">0 mins 0 secs</span>
+            </span>
+            <span class='guesses-to-beat stats'>Guesses to beat: 
+                <span id='guesses-to-beat'>0</span>
+            </span>
+            <span class='timer stats'>Timer: 
+                <span class='time' id='timer'>0 mins 0 secs</span>
+            </span>
+            <span class='guesses stats'>Guesses: 
+                <span id='guesses-accumulator'>0</span>
+            </span>
+            <span class='matched-cards stats'>Matches: 
+                <span id='match-accumulator'>0</span>
+            </span>
+            <button id='new-game'>New Game</button>
         </div>
     </header>
     <div id='game'></div>
+
+    <!--Modal on game over -->
+    <div class='modal hide-game-over-modal' id='game-over-modal'>
+        <div class="modal-content">
+            <span aria-label="close" role="button" class="close" id="close-modal">&times;</span>
+            <div class="modal-header">
+                <h2 id='modal-header'>All matches found</h2>
+            </div>
+            <div class="modal-body">
+                <div class="message">
+                    <p id='guesses-message'></p>
+                    <p id='time-message'></p>
+                    <p>Try to beat your best time using fewer guesses!</p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id='play'>Play</button>
+            </div>
+        </div>
+    </div>
+    <footer>
+        <h6>
+            Created by Davia
+        </h6>
+    </footer>
     <script src='app.js' async defer></script>
 </body>
 </html>

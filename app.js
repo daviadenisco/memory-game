@@ -7,10 +7,10 @@ const cards = [
     //     'name': 'Gilly 2',
     //     'img': './images/Gilly 2.png',
     // },
-    {
-        'name': 'Gilly 3',
-        'img': './images/Gilly 3.png',
-    },
+    // {
+    //     'name': 'Gilly 3',
+    //     'img': './images/Gilly 3.png',
+    // },
     {
         'name': 'Gilly 4',
         'img': './images/Gilly 4.png',
@@ -43,10 +43,10 @@ const cards = [
     //     'name': 'Lady 1',
     //     'img': './images/Lady 1.png',
     // },
-    {
-        'name': 'Lady 2',
-        'img': './images/Lady 2.png',
-    },
+    // {
+    //     'name': 'Lady 2',
+    //     'img': './images/Lady 2.png',
+    // },
     {
         'name': 'Lady 3',
         'img': './images/Lady 3.png',
@@ -79,10 +79,10 @@ const cards = [
     //     'name': 'Lady 10',
     //     'img': './images/Lady 10.png',
     // },
-    {
-        'name': 'Ralphie Jr 1',
-        'img': './images/Ralphie Jr 1.png',
-    },
+    // {
+    //     'name': 'Ralphie Jr 1',
+    //     'img': './images/Ralphie Jr 1.png',
+    // },
     {
         'name': 'Ralphie Jr 2',
         'img': './images/Ralphie Jr 2.png',
@@ -127,10 +127,10 @@ const cards = [
     //     'name': 'Ralphie Sr 2',
     //     'img': './images/Ralphie Sr 2.png',
     // },
-    {
-        'name': 'Ralphie Sr 3',
-        'img': './images/Ralphie Sr 3.png',
-    },
+    // {
+    //     'name': 'Ralphie Sr 3',
+    //     'img': './images/Ralphie Sr 3.png',
+    // },
     // {
     //     'name': 'Ralphie Sr 4',
     //     'img': './images/Ralphie Sr 4.png',
@@ -161,19 +161,74 @@ const cards = [
     // },
 ];
 
-// Duplicate array to create a match for each card
-let gameGrid = cards.concat(cards).sort(() => 0.5 - Math.random());
-let allMatches = document.querySelectorAll('.match');
-
+let gameGrid;
 // count to ensure two cards selected only
 let count = 0;
 let firstGuess = '';
 let secondGuess = '';
 // so the same element cannot be selected twice
 let previousTarget = null;
+let totalMatches = 0;
+let guesses = 0;
+let timer = document.getElementById('timer');
+let interval;
+let totalGameTime;
+let second = 0;
+let secondToBeat = 0;
+let minute = 0;
+let minuteToBeat = 0;
+let hour = 0;
+let totalGuesses = document.getElementById('guesses-accumulator');
+let matches = document.getElementById('match-accumulator');
+let timeToBeat = document.getElementById('time-to-beat');
+let guessesToBeat = document.getElementById('guesses-to-beat');
+let gameOverModal = document.getElementById('game-over-modal');
+let keepPlaying = document.getElementById('keep-playing');
+let playButton = document.getElementById('play');
+let guessesMessage = document.getElementById('guesses-message');
+let timeMessage = document.getElementById('time-message');
+let newGameButton = document.getElementById('new-game');
 
 // Grab the div with an id of root
 const game = document.getElementById('game');
+
+startGame();
+
+function startGame() {
+    // Duplicate array to create a match for each card
+    gameGrid = cards.concat(cards).sort(() => 0.5 - Math.random());
+};
+
+function restartGame() {
+    let matched = document.querySelectorAll('.match');
+    matched.forEach(card => {
+        card.classList.remove('match');
+        card.classList.remove('selected');
+    });
+    firstGuess = '';
+    secondGuess = '';
+    count = 0;
+    previousTarget = null;
+    totalMatches = 0;
+    matches.innerHTML = 0;
+    guesses = 0;
+    totalGuesses.innerHTML = 0;
+    timer.innerHTML = '0 mins 0 secs';
+    stopTimer();
+};
+
+// reset the guesses
+const resetGuesses = () => {
+    firstGuess = '';
+    secondGuess = '';
+    count = 0;
+    previousTarget = null;
+
+    let selected = document.querySelectorAll('.selected');
+    selected.forEach(card => {
+        card.classList.remove('selected');
+    });
+};
 
 // Create a section with a class of grid
 const grid = document .createElement('section');
@@ -190,21 +245,17 @@ gameGrid.forEach(item => {
     card.classList.add('card');
     // Set the data-name attribut of the div to the cards array name
     card.dataset.name = item.name;
-
     // create card front
     const front = document.createElement('div');
     front.classList.add('front');
-
     // create card back
     const back = document.createElement('div');
     back.classList.add('back');
     back.style.backgroundImage = `url('${item.img}')`;
     back.style.backgroundSize = 'contain';
-
     // Apply the background image of the div to the cards array image
     // card.style.backgroundImage = `url('${item.img}')`;
     card.style.backgroundSize = 'contain';
-
     // Append the div to the grid section
     grid.appendChild(card);
     card.appendChild(front);
@@ -217,37 +268,35 @@ const match = () => {
     selected.forEach(card => {
         card.classList.add('match');
     });
+    totalMatches++;
+    setMatches();
+    checkTotalMatches();
 };
 
-// reset the guesses
-const resetGuesses = () => {
-    firstGuess = '';
-    secondGuess = '';
-    count = 0;
-    previousTarget = null;
-
-    let selected = document.querySelectorAll('.selected');
-    selected.forEach(card => {
-        card.classList.remove('selected');
-    });
+// set matches
+const setMatches = () => {
+    matches.innerHTML = totalMatches;
 };
+
+function addMove() {
+    // guesses++;
+    totalGuesses.innerHTML = guesses;
+}
 
 // Add event listener to grid
 grid.addEventListener('click', e => {
     // The event target is our clicked item
     const clicked = e.target;
-
     // Do not allow the grid section itself to be selected
     // Only select divs inside the grid
     // Do not allow the same element to be selected
-    if (clicked.nodeName === 'SECTION' || 
-        clicked === previousTarget ||
+    if (clicked === previousTarget ||
         clicked.parentNode.classList.contains('selected') ||
-        clicked.parentNode.classList.contains('match')
+        clicked.parentNode.classList.contains('match') ||
+        !clicked.parentNode.classList.contains('card')
         ) {
         return;
     };
-
     // count to ensure two cards selected only
     if (count < 2) {
         count++;
@@ -261,9 +310,13 @@ grid.addEventListener('click', e => {
             secondGuess = clicked.parentNode.dataset.name;
             clicked.parentNode.classList.add('selected');
         };
-
         // if both guesses are not empty
         if (firstGuess && secondGuess) {
+            guesses++;
+            if (guesses === 1) {
+                startTimer();
+            }
+            addMove();
             // and the first guess matches the second match
             if (firstGuess === secondGuess) {
                 // run the match function
@@ -275,3 +328,75 @@ grid.addEventListener('click', e => {
         previousTarget = clicked;
     };
 });
+
+newGameButton.addEventListener("click", function(e){
+   restartGame();
+});
+
+function startTimer() {
+    interval = setInterval(function(){
+        timer.innerHTML = `${minute} mins ${second} secs`;
+        second++;
+        if(second === 60) {
+            minute++;
+            second = 0;
+        }
+        if(minute === 60) {
+            hour++;
+            minute = 0;
+        }
+    }, 1000);
+};
+
+function stopTimer() {
+    minute = 0;
+    second = 0;
+    hour = 0;
+    clearInterval(interval);
+    timer.innerHTML = `${minute} mins ${second} secs`;
+}
+
+function checkTotalMatches() {
+    if (totalMatches === 2) {
+        endGame();
+    };
+};
+
+function endGame() {   
+    // guessesToBeat is greater than zero and totalGuesses is less than guesses to beat
+    if (guessesToBeat.innerHTML > 0 && totalGuesses.innerHTML < guessesToBeat.innerHTML) {
+        // set guessesToBeat to totalGuesses
+        guessesToBeat.innerHTML = totalGuesses.innerHTML;
+    } else {
+        guessesToBeat.innerHTML = totalGuesses.innerHTML;
+    };
+
+    if (secondToBeat > 0 || minuteToBeat > 0) {
+        if (second <= secondToBeat && minute <= minuteToBeat) {
+            secondToBeat = second;
+            minuteToBeat = minute;
+        }
+    } else if (secondToBeat === 0 && minuteToBeat === 0) {
+        secondToBeat = second;
+        minuteToBeat = minute;
+    };
+    console.log('guessesToBeat: ', guessesToBeat);
+    console.log('minutesToBeat: ', minuteToBeat);
+    console.log('secondsToBeat: ', secondToBeat);
+    guessesMessage.innerHTML = `You found 16 matches using ${guessesToBeat.innerHTML} guesses.`;
+    timeMessage.innerHTML = `It took you ${minuteToBeat} minutes and ${secondToBeat} seconds.`; 
+    
+    timeToBeat.innerHTML = `${minuteToBeat} mins ${secondToBeat} secs`;
+    setTimeout(() => {
+        gameOverModal.classList.remove('hide-game-over-modal');
+        clearInterval(interval);
+        closeModal();
+    }, 1000);
+};
+
+function closeModal() {
+    playButton.addEventListener('click', function() {
+        gameOverModal.classList.add('hide-game-over-modal');
+        restartGame();
+    });
+};
