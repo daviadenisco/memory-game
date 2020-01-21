@@ -11,10 +11,10 @@
     <header>
         <h1 id='title'>Memory Cats</h1>
         <div class='header-stats'>
-            <span class='time-to-beat stats'>Time to beat: 
+            <span class='time-to-beat stats hide' id='beat-time'>Time to beat: 
                 <span class="time" id="time-to-beat">0 mins 0 secs</span>
             </span>
-            <span class='guesses-to-beat stats'>Guesses to beat: 
+            <span class='guesses-to-beat stats hide' id='beat-guesses'>Guesses to beat: 
                 <span id='guesses-to-beat'>0</span>
             </span>
             <span class='timer stats'>Timer: 
@@ -32,7 +32,7 @@
     <div id='game'></div>
 
     <!--Modal on game over -->
-    <div class='modal hide-game-over-modal' id='game-over-modal'>
+    <div class='modal hide' id='game-over-modal'>
         <div class="modal-content">
             <span aria-label="close" role="button" class="close" id="close-modal">&times;</span>
             <div class="modal-header">

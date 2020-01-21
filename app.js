@@ -161,6 +161,7 @@ const cards = [
     // },
 ];
 
+let shuffledCards = cards.concat(cards);
 let gameGrid;
 // count to ensure two cards selected only
 let count = 0;
@@ -188,15 +189,36 @@ let playButton = document.getElementById('play');
 let guessesMessage = document.getElementById('guesses-message');
 let timeMessage = document.getElementById('time-message');
 let newGameButton = document.getElementById('new-game');
-
+let beatTime = document.getElementById('beat-time');
+let beatGuesses = document.getElementById('beat-guesses');
 // Grab the div with an id of root
 const game = document.getElementById('game');
+// Create a section with a class of grid
+const grid = document.createElement('section');
+grid.setAttribute('class', 'grid');
+// Append the grid section to the game div
+game.appendChild(grid);
+
+function shuffle(array) {
+  var currentIndex = array.length, temporaryValue, randomIndex;
+
+  while (currentIndex !== 0) {
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex -= 1;
+    temporaryValue = array[currentIndex];
+    array[currentIndex] = array[randomIndex];
+    array[randomIndex] = temporaryValue;
+  }
+  return array;
+}
 
 startGame();
 
 function startGame() {
     // Duplicate array to create a match for each card
-    gameGrid = cards.concat(cards).sort(() => 0.5 - Math.random());
+    // gameGrid = cards.concat(cards).sort(() => 0.5 - Math.random());
+    shuffle(shuffledCards);
+    gameGrid = shuffledCards;
 };
 
 function restartGame() {
@@ -229,13 +251,6 @@ const resetGuesses = () => {
         card.classList.remove('selected');
     });
 };
-
-// Create a section with a class of grid
-const grid = document .createElement('section');
-grid.setAttribute('class', 'grid');
-
-// Append the grid section to the game div
-game.appendChild(grid);
 
 // For each item in the cards array
 gameGrid.forEach(item => {
@@ -330,7 +345,10 @@ grid.addEventListener('click', e => {
 });
 
 newGameButton.addEventListener("click", function(e){
-   restartGame();
+    console.log('CLICKED');
+    setTimeout(() => {
+        window.location.reload();
+    }, 200)
 });
 
 function startTimer() {
@@ -357,7 +375,7 @@ function stopTimer() {
 }
 
 function checkTotalMatches() {
-    if (totalMatches === 16) {
+    if (totalMatches === 1) {
         endGame();
     };
 };
@@ -388,7 +406,9 @@ function endGame() {
     
     timeToBeat.innerHTML = `${minuteToBeat} mins ${secondToBeat} secs`;
     setTimeout(() => {
-        gameOverModal.classList.remove('hide-game-over-modal');
+        gameOverModal.classList.remove('hide');
+        beatGuesses.classList.remove('hide');
+        beatTime.classList.remove('hide');
         clearInterval(interval);
         closeModal();
     }, 1000);
@@ -396,7 +416,7 @@ function endGame() {
 
 function closeModal() {
     playButton.addEventListener('click', function() {
-        gameOverModal.classList.add('hide-game-over-modal');
+        gameOverModal.classList.add('hide');
         restartGame();
     });
 };
