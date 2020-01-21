@@ -71,6 +71,7 @@ button {
   margin: 5px;
   position: relative;
   transition: all .4s linear;
+  -webkit-transform-style: preserve-3d;
   transform-style: preserve-3d;
 }
 
@@ -100,17 +101,22 @@ button {
   background-repeat: no-repeat;
   background-size: contain;
   border: 3px solid white;
+  -webkit-transform: rotateY(180deg);
+  -ms-transform: rotateY(180deg);
   transform: rotateY(180deg);
 }
 
 .selected {
+  -webkit-transform: rotateY(180deg);
+  -ms-transform: rotateY(180deg);
   transform: rotateY(180deg);
 }
 
 .match .front {
   background-image: url('./images/checkmark.png') !important;
-  transform: scaleX(-1);
   -webkit-transform: scaleX(-1);
+  -ms-transform: scaleX(-1);
+  transform: scaleX(-1);
 }
 
 #game-over-modal {
@@ -125,6 +131,7 @@ button {
 }
 
 .modal-content {
+  -webkit-animation: animateTop 0.4s;
   animation: animateTop 0.4s;
   background-color: #EFEBE9;
   border-radius: 0.5em;
