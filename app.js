@@ -219,14 +219,21 @@ function startGame() {
     // gameGrid = cards.concat(cards).sort(() => 0.5 - Math.random());
     shuffle(shuffledCards);
     gameGrid = shuffledCards;
+    buildGameGrid();
 };
 
 function restartGame() {
     let matched = document.querySelectorAll('.match');
     matched.forEach(card => {
-        card.classList.remove('match');
-        card.classList.remove('selected');
+        card.remove(card);
+        // card.classList.remove('match');
+        // card.classList.remove('selected');
+        // card.parentNode.removeChild();
+        // console.log("card.parentNode:", card.parentNode.child);
     });
+    shuffle(shuffledCards);
+    gameGrid = shuffledCards;
+    buildGameGrid();
     firstGuess = '';
     secondGuess = '';
     count = 0;
@@ -252,30 +259,34 @@ const resetGuesses = () => {
     });
 };
 
-// For each item in the cards array
-gameGrid.forEach(item => {
-    // Create a div
-    const card = document.createElement('div');
-    // Apply a card class to that div
-    card.classList.add('card');
-    // Set the data-name attribut of the div to the cards array name
-    card.dataset.name = item.name;
-    // create card front
-    const front = document.createElement('div');
-    front.classList.add('front');
-    // create card back
-    const back = document.createElement('div');
-    back.classList.add('back');
-    back.style.backgroundImage = `url('${item.img}')`;
-    back.style.backgroundSize = 'contain';
-    // Apply the background image of the div to the cards array image
-    // card.style.backgroundImage = `url('${item.img}')`;
-    card.style.backgroundSize = 'contain';
-    // Append the div to the grid section
-    grid.appendChild(card);
-    card.appendChild(front);
-    card.appendChild(back);
-});
+function buildGameGrid() {
+    // For each item in the cards array
+    gameGrid.forEach(item => {
+        // console.log('item: ', item);
+        // Create a div
+        const card = document.createElement('div');
+        console.log('cardDiv: ', card);
+        // Apply a card class to that div
+        card.classList.add('card');
+        // Set the data-name attribut of the div to the cards array name
+        card.dataset.name = item.name;
+        // create card front
+        const front = document.createElement('div');
+        front.classList.add('front');
+        // create card back
+        const back = document.createElement('div');
+        back.classList.add('back');
+        back.style.backgroundImage = `url('${item.img}')`;
+        back.style.backgroundSize = 'contain';
+        // Apply the background image of the div to the cards array image
+        // card.style.backgroundImage = `url('${item.img}')`;
+        card.style.backgroundSize = 'contain';
+        // Append the div to the grid section
+        grid.appendChild(card);
+        card.appendChild(front);
+        card.appendChild(back);
+    });
+};
 
 // add match css
 const match = () => {
@@ -375,7 +386,7 @@ function stopTimer() {
 }
 
 function checkTotalMatches() {
-    if (totalMatches === 1) {
+    if (totalMatches === 16) {
         endGame();
     };
 };
@@ -398,9 +409,6 @@ function endGame() {
         secondToBeat = second;
         minuteToBeat = minute;
     };
-    console.log('guessesToBeat: ', guessesToBeat);
-    console.log('minutesToBeat: ', minuteToBeat);
-    console.log('secondsToBeat: ', secondToBeat);
     guessesMessage.innerHTML = `You found 16 matches using ${guessesToBeat.innerHTML} guesses.`;
     timeMessage.innerHTML = `It took you ${minuteToBeat} minutes and ${secondToBeat} seconds.`; 
     
