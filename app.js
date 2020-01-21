@@ -220,7 +220,6 @@ function startGame() {
     shuffle(shuffledCards);
     gameGrid = shuffledCards;
     buildGameGrid();
-    checkTotalMatches();
 };
 
 function restartGame() {
@@ -297,6 +296,7 @@ const match = () => {
     });
     totalMatches++;
     setMatches();
+    checkTotalMatches();
 };
 
 // set matches
