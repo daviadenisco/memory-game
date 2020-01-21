@@ -220,6 +220,7 @@ function startGame() {
     shuffle(shuffledCards);
     gameGrid = shuffledCards;
     buildGameGrid();
+    checkTotalMatches();
 };
 
 function restartGame() {
@@ -296,7 +297,6 @@ const match = () => {
     });
     totalMatches++;
     setMatches();
-    checkTotalMatches();
 };
 
 // set matches
@@ -356,7 +356,6 @@ grid.addEventListener('click', e => {
 });
 
 newGameButton.addEventListener("click", function(e){
-    console.log('CLICKED');
     setTimeout(() => {
         window.location.reload();
     }, 200)
