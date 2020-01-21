@@ -357,7 +357,7 @@ function stopTimer() {
 }
 
 function checkTotalMatches() {
-    if (totalMatches === 2) {
+    if (totalMatches === 16) {
         endGame();
     };
 };
