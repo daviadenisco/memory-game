@@ -191,6 +191,14 @@ let timeMessage = document.getElementById('time-message');
 let newGameButton = document.getElementById('new-game');
 let beatTime = document.getElementById('beat-time');
 let beatGuesses = document.getElementById('beat-guesses');
+let flip = new Audio();
+flip.src = 'Card-flip-sound-effect/Card-flip-sound-effect.mp3';
+let correct = new Audio();
+correct.src = 'Bing-sound/Bing-sound.mp3';
+let wrong = new Audio();
+wrong.src = 'Deep-error-tone-sound-effect/Deep-error-tone-sound-effect.mp3';
+let finish = new Audio();
+finish.src = 'Quiz-correct-sound-with-applause/Quiz-correct-sound-with-applause.mp3';
 // Grab the div with an id of root
 const game = document.getElementById('game');
 // Create a section with a class of grid
@@ -257,6 +265,7 @@ const resetGuesses = () => {
     selected.forEach(card => {
         card.classList.remove('selected');
     });
+    wrong.play();
 };
 
 function buildGameGrid() {
@@ -265,7 +274,6 @@ function buildGameGrid() {
         // console.log('item: ', item);
         // Create a div
         const card = document.createElement('div');
-        console.log('cardDiv: ', card);
         // Apply a card class to that div
         card.classList.add('card');
         // Set the data-name attribut of the div to the cards array name
@@ -290,6 +298,7 @@ function buildGameGrid() {
 
 // add match css
 const match = () => {
+    correct.play();
     let selected = document.querySelectorAll('.selected');
     selected.forEach(card => {
         card.classList.add('match');
@@ -311,6 +320,7 @@ function addMove() {
 
 // Add event listener to grid
 grid.addEventListener('click', e => {
+    flip.play();
     // The event target is our clicked item
     const clicked = e.target;
     // Do not allow the grid section itself to be selected
@@ -413,6 +423,7 @@ function endGame() {
     
     timeToBeat.innerHTML = `${minuteToBeat} mins ${secondToBeat} secs`;
     setTimeout(() => {
+        finish.play();
         gameOverModal.classList.remove('hide');
         beatGuesses.classList.remove('hide');
         beatTime.classList.remove('hide');
