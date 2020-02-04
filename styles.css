@@ -5,22 +5,28 @@
 }
 
 body {
-  background: rgb(40, 43, 43);
-  color: #25272E;
+  /* background: rgb(57, 57, 58); */
+  background-color: rgb(25, 14, 53);  
+  color: white;
   font-family: 'Asap', sans-serif;
+  margin: 0;
 }
 
 header {
-  background-color: white;  
+  background-color: rgb(20, 20, 20);  
+  border-bottom: 2px solid rgb(48, 40, 97);
   display: table;
   height: 100px;
   width: 100%;
 }
 
 header > h1 {
-  color: #444444;
-  background: #FFFFFF;
-  text-shadow: 1px 0px 1px rgb(250, 8, 238), 0px 1px 1px #EEEEEE, 2px 1px 1px #CCCCCC, 1px 2px 1px #EEEEEE, 3px 2px 1px #CCCCCC, 2px 3px 1px #EEEEEE, 4px 3px 1px #CCCCCC, 3px 4px 1px #EEEEEE, 5px 4px 1px #CCCCCC, 4px 5px 1px #EEEEEE, 6px 5px 1px #CCCCCC, 5px 6px 1px #EEEEEE, 7px 6px 1px #CCCCCC;
+  color: white;
+  font-family: 'Bangers';
+  font-size: 40px;
+  /* text-shadow: 1px 0px 1px rgb(250, 8, 238), 0px 1px 1px #EEEEEE, 2px 1px 1px #CCCCCC, 1px 2px 1px #EEEEEE, 3px 2px 1px #CCCCCC, 2px 3px 1px #EEEEEE, 4px 3px 1px #CCCCCC, 3px 4px 1px #EEEEEE, 5px 4px 1px #CCCCCC, 4px 5px 1px #EEEEEE, 6px 5px 1px #CCCCCC, 5px 6px 1px #EEEEEE, 7px 6px 1px #CCCCCC; */
+  /* text-shadow: 1px 0px 1px rgb(250, 8, 238), 0px 1px 1px rgba(5, 71, 240, 1), 2px 1px 1px rgb(250, 8, 238), 1px 2px 1px rgba(5, 71, 240, 1), 3px 2px 1px rgb(250, 8, 238), 2px 3px 1px rgba(5, 71, 240, 1), 4px 3px 1px rgb(250, 8, 238), 3px 4px 1px rgba(5, 71, 240, 1), 5px 4px 1px rgb(250, 8, 238), 4px 5px 1px rgba(5, 71, 240, 1), 6px 5px 1px rgb(250, 8, 238), 5px 6px 1px rgba(5, 71, 240, 1), 7px 6px 1px rgb(250, 8, 238); */
+  text-shadow: 1px 0px 1px #FF2D95, 0px 1px 1px rgba(5, 71, 240, 1), 2px 1px 1px #FF2D95, 1px 2px 1px rgba(5, 71, 240, 1), 3px 2px 1px #FF2D95, 2px 3px 1px rgba(5, 71, 240, 1), 4px 3px 1px #FF2D95, 3px 4px 1px rgba(5, 71, 240, 1), 5px 4px 1px #FF2D95, 4px 5px 1px rgba(5, 71, 240, 1), 6px 5px 1px #FF2D95, 5px 6px 1px rgba(5, 71, 240, 1), 7px 6px 1px #FF2D95;
 }
 
 h1 {
@@ -40,8 +46,9 @@ h1 {
 }
 
 button {
-  background-color: rgb(40, 43, 43);
-  box-shadow: 10px 5px 5px #CCCCCC;
+  background-color: rgb(20, 20, 20);
+  /* box-shadow: 1px 0px 1px rgb(250, 8, 238), 0px 1px 1px rgba(5, 71, 240, 1), 2px 1px 1px rgb(250, 8, 238), 1px 2px 1px rgba(5, 71, 240, 1), 3px 2px 1px rgb(250, 8, 238), 2px 3px 1px rgba(5, 71, 240, 1), 4px 3px 1px rgb(250, 8, 238), 3px 4px 1px rgba(5, 71, 240, 1), 5px 4px 1px rgb(250, 8, 238), 4px 5px 1px rgba(5, 71, 240, 1), 6px 5px 1px rgb(250, 8, 238), 5px 6px 1px rgba(5, 71, 240, 1), 7px 6px 1px rgb(250, 8, 238);; */
+  box-shadow: 1px 0px 1px #FF2D95, 0px 1px 1px rgba(5, 71, 240, 1), 2px 1px 1px #FF2D95, 1px 2px 1px rgba(5, 71, 240, 1), 3px 2px 1px #FF2D95;
   border-radius: 30px;
   color: white;
   cursor: pointer;
@@ -93,7 +100,7 @@ button {
     background-position: center center;
     background-repeat: no-repeat;
     background-size: contain;
-    border: 10px solid rgb(68, 68, 68);
+    border: 10px solid rgb(20, 20, 20);
 }
 
 .back {
@@ -121,6 +128,7 @@ button {
 
 #game-over-modal {
   background-color: rgba(0, 0, 0, 0.4);
+  color: black;
   left: 0;
   height: 100%;
   overflow: auto;
@@ -133,7 +141,8 @@ button {
 .modal-content {
   -webkit-animation: animateTop 0.4s;
   animation: animateTop 0.4s;
-  background-color: #EFEBE9;
+  /* background-color: #EFEBE9; */
+  background-color: white;
   border-radius: 0.5em;
   border: 1px solid #808080;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
@@ -154,6 +163,8 @@ button {
   font-size: 1.25em;
   font-weight: bold;
   padding: 30px 0 20px 0;
+  text-shadow: 1px 0px 1px #FF2D95, 0px 1px 1px rgba(5, 71, 240, 1), 2px 1px 1px #FF2D95, 1px 2px 1px rgba(5, 71, 240, 1), 3px 2px 1px #FF2D95;
+
 }
 
 #modal-header {
@@ -181,7 +192,8 @@ button {
 }
 
 footer {
-  background-color: white;  
+  background-color: rgb(20, 20, 20);  
+  border-top: 2px solid rgb(48, 40, 97);
   display: table;
   height: 80px;
   text-align: right;
@@ -189,10 +201,11 @@ footer {
 }
 
 footer > h6 {
-  color: #25272E;
+  color: white;
   font-family: 'Asap', sans-serif;
   font-size: 20px;
-  text-shadow: 1px 0px 1px rgb(250, 8, 238), 0px 1px 1px #EEEEEE, 2px 1px 1px #CCCCCC, 1px 2px 1px #EEEEEE, 3px 2px 1px #CCCCCC, 2px 3px 1px #EEEEEE, 4px 3px 1px #CCCCCC, 3px 4px 1px #EEEEEE, 5px 4px 1px #CCCCCC, 4px 5px 1px #EEEEEE, 6px 5px 1px #CCCCCC, 5px 6px 1px #EEEEEE, 7px 6px 1px #CCCCCC;
+  /* text-shadow: 1px 0px 1px rgb(250, 8, 238), 0px 1px 1px rgba(5, 71, 240, 1), 2px 1px 1px rgb(250, 8, 238), 1px 2px 1px rgba(5, 71, 240, 1), 3px 2px 1px rgb(250, 8, 238), 2px 3px 1px rgba(5, 71, 240, 1), 4px 3px 1px rgb(250, 8, 238), 3px 4px 1px rgba(5, 71, 240, 1), 5px 4px 1px rgb(250, 8, 238), 4px 5px 1px rgba(5, 71, 240, 1), 6px 5px 1px rgb(250, 8, 238), 5px 6px 1px rgba(5, 71, 240, 1), 7px 6px 1px rgb(250, 8, 238); */
+  text-shadow: 1px 0px 1px #FF2D95, 0px 1px 1px rgba(5, 71, 240, 1), 2px 1px 1px #FF2D95, 1px 2px 1px rgba(5, 71, 240, 1), 3px 2px 1px #FF2D95;
 }
 
 h6 {
